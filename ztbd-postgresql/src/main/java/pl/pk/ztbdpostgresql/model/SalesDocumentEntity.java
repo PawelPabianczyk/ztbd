@@ -1,30 +1,25 @@
 package pl.pk.ztbdpostgresql.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "dokument_sprzedazy")
+@Table(name = "faktura")
 public class SalesDocumentEntity {
     @Id
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "zlecenie_id")
+    private OrderEntity order;
+
     @OneToOne(mappedBy = "salesDocument")
     private PaymentEntity payment;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_zlecenia", referencedColumnName = "id")
-    private OrderEntity order;
 
     @Column(name = "data_wystawienia")
     private LocalDate invoiceDate;
 
-    @Column(name = "czy_faktura")
-    private Boolean isInvoice;
-
-    @Column(name = "nip")
-    private String taxIdentifier;
-
-    @Column(name = "nazwa_klienta")
-    private String customerName;
+    @Column(name = "kwota")
+    private BigDecimal amount;
 }

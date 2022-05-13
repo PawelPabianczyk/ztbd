@@ -9,7 +9,7 @@ public class AddressEntity {
     private Long id;
 
     @OneToOne(mappedBy = "address")
-    private NotificationEntity notification;
+    private SubjectEntity subject;
 
     @Column(name = "miasto")
     private String city;
@@ -25,6 +25,5 @@ public class AddressEntity {
 
     @Column(name = "nr_lokalu")
     private String apartmentNumber;
-
 
 }

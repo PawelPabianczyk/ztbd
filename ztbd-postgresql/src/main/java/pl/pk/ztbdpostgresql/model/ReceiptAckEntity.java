@@ -10,15 +10,10 @@ public class ReceiptAckEntity {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_przesylki", referencedColumnName = "id")
+    @JoinColumn(name = "przesylka_id")
     private ParcelEntity parcel;
-
-    @OneToOne(mappedBy = "receiptAck")
-    private NotificationEntity notification;
 
     @Column(name = "data_dostarczenia")
     private LocalDate deliveryDate;
 
-    @Column(name = "czy_dostarczono")
-    private Boolean isDelivered;
 }

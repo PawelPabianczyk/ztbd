@@ -9,26 +9,30 @@ public class ParcelEntity {
     @Id
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "zlecenie_id")
+    private OrderEntity order;
+
+    @ManyToOne
+    @JoinColumn(name = "adresat_id")
+    private SubjectEntity addressee;
+
     @OneToOne(mappedBy = "parcel")
     private ReceiptAckEntity receiptAck;
 
-    @OneToOne(mappedBy = "parcel")
-    private OrderEntity order;
+    @Column(name = "rodzaj_przesylki")
+    private String parcelType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_rodzaju_przesylki", referencedColumnName = "id")
-    private ParcelTypeEntity parcelType;
-
-    @Column(name = "wymiar_x_w_cm")
+    @Column(name = "wymiar_x")
     private Integer dimensionX;
 
-    @Column(name = "wymiar_y_w_cm")
+    @Column(name = "wymiar_y")
     private Integer dimensionY;
 
-    @Column(name = "wymiar_z_w_cm")
+    @Column(name = "wymiar_z")
     private Integer dimensionZ;
 
-    @Column(name = "waga_w_g")
+    @Column(name = "waga")
     private Integer weight;
 
     @Column(name = "data_nadania")

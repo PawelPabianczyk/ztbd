@@ -1,7 +1,6 @@
 package pl.pk.ztbdpostgresql.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -11,11 +10,8 @@ public class PaymentEntity {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_dokumentu_sprzedazy", referencedColumnName = "id")
+    @JoinColumn(name = "faktura_id")
     private SalesDocumentEntity salesDocument;
-
-    @Column(name = "kwota")
-    private BigDecimal amount;
 
     @Column(name = "czy_zaplacono")
     private Boolean isPaid;
@@ -24,5 +20,5 @@ public class PaymentEntity {
     private LocalDate paymentDate;
 
     @Column(name = "typ_platnosci")
-    private BigDecimal paymentType;
+    private String paymentType;
 }
