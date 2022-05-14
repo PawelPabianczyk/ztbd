@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: adres/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: podmiot/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: zlecenie/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: faktura/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: oplata/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: przesylka/db.changelog.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: potwierdzenie_odbioru/db.changelog.yaml

@@ -4,4 +4,4 @@ databaseChangeLog:
       file: schema/db.changelog.yaml
   - include:
       relativeToChangelogFile: true
-      file: data/db.changelog.yaml
+      file: data/5k/db.changelog.yaml

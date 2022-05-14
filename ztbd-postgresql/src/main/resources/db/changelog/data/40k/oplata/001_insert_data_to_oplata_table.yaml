@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_insert_data_to_oplata_table
+      author: ztbd
+      changes:
+        - loadData:
+            relativeToChangelogFile: true
+            file: oplata_data.csv
+            encoding: UTF-8
+            commentLineStartsWith: //
+            schemaName: public
+            separator: ','
+            usePreparedStatements: true
+            tableName: oplata
+            columns:
+              - column:
+                  name: id
+                  type: numeric
+              - column:
+                  name: faktura_id
+                  type: numeric
+              - column:
+                  name: czy_zaplacono
+                  type: boolean
+              - column:
+                  name: data_zaplaty
+                  type: date
+              - column:
+                  name: typ_platnosci
+                  type: string
