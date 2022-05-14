@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_foreign_keys
+      author: ztbd
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: adres_id
+            baseTableName: podmiot
+            constraintName: podmiot_adres_fk
+            referencedColumnNames: id
+            referencedTableName: adres

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_foreign_keys
+      author: ztbd
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: nadawca_id
+            baseTableName: zlecenie
+            constraintName: zlecenie_podmiot_fk
+            referencedColumnNames: id
+            referencedTableName: podmiot

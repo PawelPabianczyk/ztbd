@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_foreign_keys
+      author: ztbd
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: zlecenie_id
+            baseTableName: przesylka
+            constraintName: przesylka_zlecenie_fk
+            referencedColumnNames: id
+            referencedTableName: zlecenie
+        - addForeignKeyConstraint:
+            baseColumnNames: adresat_id
+            baseTableName: przesylka
+            constraintName: przesylka_podmiot_fk
+            referencedColumnNames: id
+            referencedTableName: podmiot

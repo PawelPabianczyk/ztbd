@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_oplata_table
+      author: ztbd
+      changes:
+        - createTable:
+            tableName: oplata
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: faktura_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: czy_zaplacono
+                  type: boolean
+              - column:
+                  name: data_zaplaty
+                  type: date
+              - column:
+                  name: typ_platnosci
+                  type: varchar(255)

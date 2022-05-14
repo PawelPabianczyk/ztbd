@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_adres_table
+      author: ztbd
+      changes:
+        - createTable:
+            tableName: adres
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: miasto
+                  type: varchar(255)
+              - column:
+                  name: kod_pocztowy
+                  type: varchar(255)
+              - column:
+                  name: ulica
+                  type: varchar(255)
+              - column:
+                  name: nr_budynku
+                  type: varchar(255)
+              - column:
+                  name: nr_lokalu
+                  type: varchar(255)

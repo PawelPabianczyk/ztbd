@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_potwierdzenie_odbioru_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 002_create_foreign_keys.yaml

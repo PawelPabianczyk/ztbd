@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_foreign_keys
+      author: ztbd
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: zlecenie_id
+            baseTableName: faktura
+            constraintName: faktura_zlecenie_fk
+            referencedColumnNames: id
+            referencedTableName: zlecenie
