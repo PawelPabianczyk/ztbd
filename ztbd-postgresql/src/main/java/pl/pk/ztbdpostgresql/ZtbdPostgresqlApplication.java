@@ -8,7 +8,7 @@ public class ZtbdPostgresqlApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ZtbdPostgresqlApplication.class, args);
-        
+
     }
 
 }
