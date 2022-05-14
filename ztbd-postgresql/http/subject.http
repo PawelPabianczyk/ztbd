@@ -1,3 +1,10 @@
+#ORACLE
+GET http://localhost:8080/subjects/1
+Accept: application/json
+
+###
+
+#POSTGRES
 GET http://localhost:8081/subjects/1
 Accept: application/json
 
