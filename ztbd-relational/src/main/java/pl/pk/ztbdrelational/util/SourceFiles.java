@@ -1,4 +1,4 @@
-package pl.pk.ztbdpostgresql.util;
+package pl.pk.ztbdrelational.util;
 
 public enum SourceFiles {
     ADDRESS("./data/relacyjna-5k/adres-5000.csv"),

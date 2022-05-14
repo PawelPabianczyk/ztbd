@@ -1,7 +1,7 @@
-package pl.pk.ztbdpostgresql.repository;
+package pl.pk.ztbdrelational.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.pk.ztbdpostgresql.model.SubjectEntity;
+import pl.pk.ztbdrelational.model.SubjectEntity;
 
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
 }

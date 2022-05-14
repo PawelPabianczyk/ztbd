@@ -1,4 +1,4 @@
-package pl.pk.ztbdpostgresql.model;
+package pl.pk.ztbdrelational.model;
 
 
 import javax.persistence.*;

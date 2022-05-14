@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>pl.pk</groupId>
-    <artifactId>ztbd-postgresql</artifactId>
+    <artifactId>ztbd-relational</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ztbd-postgresql</name>
-    <description>ztbd-postgresql</description>
+    <name>ztbd-relational</name>
+    <description>ztbd-relational</description>
     <properties>
         <java.version>11</java.version>
     </properties>

@@ -1,9 +1,9 @@
-package pl.pk.ztbdpostgresql.service.impl;
+package pl.pk.ztbdrelational.service.impl;
 
 import org.springframework.stereotype.Service;
-import pl.pk.ztbdpostgresql.model.SubjectEntity;
-import pl.pk.ztbdpostgresql.repository.SubjectRepository;
-import pl.pk.ztbdpostgresql.service.SubjectService;
+import pl.pk.ztbdrelational.model.SubjectEntity;
+import pl.pk.ztbdrelational.repository.SubjectRepository;
+import pl.pk.ztbdrelational.service.SubjectService;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
