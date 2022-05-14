@@ -17,7 +17,7 @@ public class SubjectEntity {
     private Set<ParcelEntity> parcels;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "addres_id")
+    @JoinColumn(name = "adres_id")
     private AddressEntity address;
 
     @Column(name = "nazwa")
@@ -31,4 +31,18 @@ public class SubjectEntity {
 
     @Column(name = "nip")
     private String taxIdentifier;
+
+    @Override
+    public String toString() {
+        return "SubjectEntity{" +
+                "id=" + id +
+                ", orders=" + orders +
+                ", parcels=" + parcels +
+                ", address=" + address +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", taxIdentifier='" + taxIdentifier + '\'' +
+                '}';
+    }
 }

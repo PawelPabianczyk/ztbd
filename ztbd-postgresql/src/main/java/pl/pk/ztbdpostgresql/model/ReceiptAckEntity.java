@@ -16,4 +16,11 @@ public class ReceiptAckEntity {
     @Column(name = "data_dostarczenia")
     private LocalDate deliveryDate;
 
+    @Override
+    public String toString() {
+        return "ReceiptAckEntity{" +
+                "id=" + id +
+                ", deliveryDate=" + deliveryDate +
+                '}';
+    }
 }

@@ -22,4 +22,14 @@ public class SalesDocumentEntity {
 
     @Column(name = "kwota")
     private BigDecimal amount;
+
+    @Override
+    public String toString() {
+        return "SalesDocumentEntity{" +
+                "id=" + id +
+                ", payment=" + payment +
+                ", invoiceDate=" + invoiceDate +
+                ", amount=" + amount +
+                '}';
+    }
 }

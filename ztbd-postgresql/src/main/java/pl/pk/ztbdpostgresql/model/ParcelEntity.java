@@ -37,4 +37,18 @@ public class ParcelEntity {
 
     @Column(name = "data_nadania")
     private LocalDate postingDate;
+
+    @Override
+    public String toString() {
+        return "ParcelEntity{" +
+                "id=" + id +
+                ", receiptAck=" + receiptAck +
+                ", parcelType='" + parcelType + '\'' +
+                ", dimensionX=" + dimensionX +
+                ", dimensionY=" + dimensionY +
+                ", dimensionZ=" + dimensionZ +
+                ", weight=" + weight +
+                ", postingDate=" + postingDate +
+                '}';
+    }
 }

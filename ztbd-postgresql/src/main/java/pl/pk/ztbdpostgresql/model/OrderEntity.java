@@ -18,4 +18,13 @@ public class OrderEntity {
 
     @OneToOne(mappedBy = "order")
     private SalesDocumentEntity salesDocument;
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", parcels=" + parcels +
+                ", salesDocument=" + salesDocument +
+                '}';
+    }
 }

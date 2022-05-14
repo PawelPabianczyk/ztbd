@@ -21,4 +21,14 @@ public class PaymentEntity {
 
     @Column(name = "typ_platnosci")
     private String paymentType;
+
+    @Override
+    public String toString() {
+        return "PaymentEntity{" +
+                "id=" + id +
+                ", isPaid=" + isPaid +
+                ", paymentDate=" + paymentDate +
+                ", paymentType='" + paymentType + '\'' +
+                '}';
+    }
 }
