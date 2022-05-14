@@ -1,5 +1,8 @@
 package pl.pk.ztbdpostgresql.service;
 
+import pl.pk.ztbdpostgresql.model.SubjectEntity;
+
 public interface SubjectService {
-    String loadSubject();
+
+    SubjectEntity getSubject(Long id);
 }

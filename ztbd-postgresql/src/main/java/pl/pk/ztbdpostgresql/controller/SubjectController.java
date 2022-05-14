@@ -9,6 +9,7 @@ import pl.pk.ztbdpostgresql.service.SubjectService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+
 @RestController
 @RequestMapping("subjects")
 public class SubjectController {
@@ -20,12 +21,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{id}")
-    public String getSubject(@PathVariable int id) {
-        return id+"";
-    }
-
-    @GetMapping
-    public ResponseEntity<String> loadSubjects() {
-        return ok(service.loadSubject());
+    public ResponseEntity<String> getSubject(@PathVariable Long id) {
+        return ok(service.getSubject(id).toString());
     }
 }
