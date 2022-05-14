@@ -4,28 +4,30 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Document("dokument_sprzedazy")
+@Document("faktura")
 public class SalesDocumentEntity {
     @Id
-    private String id;
+    private Long id;
 
     @Field("oplata")
     private PaymentEntity payment;
 
-    @Field("zlecenie_id")
-    private String orderId;
-
     @Field("data_wystawienia")
     private LocalDate invoiceDate;
 
-    @Field("czy_faktura")
-    private Boolean isInvoice;
+    @Field("kwota")
+    private BigDecimal amount;
 
-    @Field("nip")
-    private String taxIdentifier;
-
-    @Field("nazwa_klienta")
-    private String customerName;
+    @Override
+    public String toString() {
+        return "SalesDocumentEntity{" +
+                "id=" + id +
+                ", payment=" + payment +
+                ", invoiceDate=" + invoiceDate +
+                ", amount=" + amount +
+                '}';
+    }
 }

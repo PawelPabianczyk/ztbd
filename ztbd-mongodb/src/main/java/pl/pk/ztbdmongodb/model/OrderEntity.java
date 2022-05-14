@@ -4,27 +4,28 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Set;
 
 @Document("zlecenie")
 public class OrderEntity {
     @Id
-    private String id;
+    private Long id;
 
-    @Field("dokument_sprzedazy")
+    @Field("nadawcaId")
+    private String subject;
+
+    @Field("przesylkaIds")
+    private Set<String> parcels;
+
+    @Field("faktura")
     private SalesDocumentEntity salesDocument;
 
-    @Field("przesylka_id")
-    private String parcelId;
-
-    @Field("adres_id")
-    private String addressId;
-
-    @Field("odleglosc_w_km")
-    private Integer distance;
-
-    @Field("imie_odbiorcy")
-    private String recipientFirstName;
-
-    @Field("nazwisko_odbiorcy")
-    private String recipientSurname;
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", parcels=" + parcels +
+                ", salesDocument=" + salesDocument +
+                '}';
+    }
 }

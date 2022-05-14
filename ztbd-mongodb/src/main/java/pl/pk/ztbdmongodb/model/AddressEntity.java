@@ -1,6 +1,5 @@
 package pl.pk.ztbdmongodb.model;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -8,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("adres")
 public class AddressEntity {
     @Id
-    private String id;
+    private Long id;
 
     @Field("miasto")
     private String city;
@@ -26,4 +25,15 @@ public class AddressEntity {
     private String apartmentNumber;
 
 
+    @Override
+    public String toString() {
+        return "AddressEntity{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", street='" + street + '\'' +
+                ", buildingNumber='" + buildingNumber + '\'' +
+                ", apartmentNumber='" + apartmentNumber + '\'' +
+                '}';
+    }
 }

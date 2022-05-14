@@ -6,17 +6,19 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 
-@Document("potwierdzenie_odbioru")
+@Document("potwierdzenieOdbioru")
 public class ReceiptAckEntity {
     @Id
-    private String id;
-
-    @Field("awizo")
-    private NotificationEntity notification;
+    private Long id;
 
     @Field("data_dostarczenia")
     private LocalDate deliveryDate;
 
-    @Field("czy_dostarczono")
-    private Boolean isDelivered;
+    @Override
+    public String toString() {
+        return "ReceiptAckEntity{" +
+                "id=" + id +
+                ", deliveryDate=" + deliveryDate +
+                '}';
+    }
 }

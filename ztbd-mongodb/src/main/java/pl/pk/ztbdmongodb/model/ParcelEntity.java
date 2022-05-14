@@ -1,6 +1,5 @@
 package pl.pk.ztbdmongodb.model;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,29 +9,46 @@ import java.time.LocalDate;
 @Document("przesylka")
 public class ParcelEntity {
     @Id
-    private String id;
+    private Long id;
 
-    @Field("zlecenie_id")
-    private String orderId;
+    @Field("adresatId")
+    private String addressee;
 
-    @Field("wymiar_x_w_cm")
+    @Field("zlecenieId")
+    private String order;
+
+    @Field("wymiar_x")
     private Integer dimensionX;
 
-    @Field("wymiar_y_w_cm")
+    @Field("wymiar_y")
     private Integer dimensionY;
 
-    @Field("wymiar_z_w_cm")
+    @Field("wymiar_z")
     private Integer dimensionZ;
 
-    @Field("waga_w_g")
+    @Field("waga")
     private Integer weight;
 
     @Field("data_nadania")
     private LocalDate postingDate;
 
     @Field("rodzaj_przesylki")
-    private ParcelTypeEntity parcelType;
+    private String parcelType;
 
-    @Field("potwierdzenie_odbioru")
+    @Field("potwierdzenieOdbioru")
     private ReceiptAckEntity receiptAck;
+
+    @Override
+    public String toString() {
+        return "ParcelEntity{" +
+                "id=" + id +
+                ", receiptAck=" + receiptAck +
+                ", parcelType='" + parcelType + '\'' +
+                ", dimensionX=" + dimensionX +
+                ", dimensionY=" + dimensionY +
+                ", dimensionZ=" + dimensionZ +
+                ", weight=" + weight +
+                ", postingDate=" + postingDate +
+                '}';
+    }
 }
