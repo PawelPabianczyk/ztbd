@@ -6,6 +6,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: przesylka_id
             baseTableName: potwierdzenie_odbioru
-            constraintName: potwierdzenie_odbioru_przesylka_fk
+            constraintName: pot_odb_prze_fk
             referencedColumnNames: id
             referencedTableName: przesylka
