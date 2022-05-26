@@ -8,7 +8,6 @@ databaseChangeLog:
             file: potwierdzenie_odbioru_data.csv
             encoding: UTF-8
             commentLineStartsWith: //
-            schemaName: public
             separator: ','
             usePreparedStatements: true
             tableName: potwierdzenie_odbioru

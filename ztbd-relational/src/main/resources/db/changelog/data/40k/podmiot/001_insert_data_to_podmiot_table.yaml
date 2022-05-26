@@ -8,7 +8,6 @@ databaseChangeLog:
             file: podmiot_data.csv
             encoding: UTF-8
             commentLineStartsWith: //
-            schemaName: public
             separator: ','
             usePreparedStatements: true
             tableName: podmiot

@@ -12,13 +12,13 @@ Aby przełączyć się pomiędzy nimi należy wybrać jeden z dwóch dostępnych
 - postgres (domyślny)
 
 ```
-mvn spring-boot:run -Dpostgres
+mvn spring-boot:run -Ppostgres
 ```
 
 - oracle
 
 ```
-mvn spring-boot:run -Doracle
+mvn spring-boot:run -Poracle
 ```
 
 ### Zmiana ilości importowanych danych
