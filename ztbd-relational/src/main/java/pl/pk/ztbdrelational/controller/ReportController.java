@@ -20,7 +20,12 @@ public class ReportController {
   }
 
   @GetMapping("/1")
-  public ResponseEntity<ResponseDto> getNumberOfParcelsForEverySubject() {
-    return ok(service.getNumberOfParcelsForEverySubject());
+  public ResponseEntity<ResponseDto> getParcelsBySubject() {
+    return ok(service.getParcelsBySubject());
+  }
+
+  @GetMapping("/2")
+  public ResponseEntity<ResponseDto> getParcelsByCity() {
+    return ok(service.getParcelsByCity());
   }
 }

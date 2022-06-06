@@ -4,10 +4,19 @@ GET http://localhost:8080/reports/1
 Accept: application/json
 
 ###
+GET http://localhost:8080/reports/2
+Accept: application/json
+
+###
 
 #POSTGRES
 
 GET http://localhost:8081/reports/1
+Accept: application/json
+
+###
+
+GET http://localhost:8081/reports/2
 Accept: application/json
 
 ###

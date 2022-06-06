@@ -1,6 +1,6 @@
 package pl.pk.ztbdrelational.projection;
 
-public class NumberOfParcelsView {
+public class ParcelsBySubjectView {
 
   private final String firstName;
 
@@ -8,7 +8,7 @@ public class NumberOfParcelsView {
 
   private final long numberOfParcels;
 
-  public NumberOfParcelsView(String firstName, String surname, long numberOfParcels) {
+  public ParcelsBySubjectView(String firstName, String surname, long numberOfParcels) {
     this.firstName = firstName;
     this.surname = surname;
     this.numberOfParcels = numberOfParcels;
@@ -24,5 +24,14 @@ public class NumberOfParcelsView {
 
   public long getNumberOfParcels() {
     return numberOfParcels;
+  }
+
+  @Override
+  public String toString() {
+    return "ParcelsBySubjectView{" +
+            "firstName='" + firstName + '\'' +
+            ", surname='" + surname + '\'' +
+            ", numberOfParcels=" + numberOfParcels +
+            '}';
   }
 }
