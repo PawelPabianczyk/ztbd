@@ -24,4 +24,5 @@ public class SubjectController {
     public ResponseEntity<String> getSubject(@PathVariable Long id) {
         return ok(service.getSubject(id).toString());
     }
+
 }

@@ -9,3 +9,7 @@ GET http://localhost:8081/subjects/1
 Accept: application/json
 
 ###
+GET http://localhost:8081/reports/1
+Accept: application/json
+
+###

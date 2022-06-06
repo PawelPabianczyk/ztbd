@@ -5,17 +5,18 @@ import pl.pk.ztbdrelational.model.SubjectEntity;
 import pl.pk.ztbdrelational.repository.SubjectRepository;
 import pl.pk.ztbdrelational.service.SubjectService;
 
+
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
-    private final SubjectRepository repository;
+  private final SubjectRepository repository;
 
-    public SubjectServiceImpl(SubjectRepository repository) {
-        this.repository = repository;
-    }
+  public SubjectServiceImpl(SubjectRepository repository) {
+    this.repository = repository;
+  }
 
-    @Override
-    public SubjectEntity getSubject(Long id) {
-        return repository.getById(id);
-    }
+  @Override
+  public SubjectEntity getSubject(Long id) {
+    return repository.getById(id);
+  }
 }
