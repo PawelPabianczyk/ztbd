@@ -1,12 +1,12 @@
 package pl.pk.ztbdrelational.dto;
 
-public class ResponseDto {
+public class ResultDto {
 
   private final long time;
 
   private final long numberOfRecords;
 
-  public ResponseDto(long time, long numberOfRecords) {
+  public ResultDto(long time, long numberOfRecords) {
     this.time = time;
     this.numberOfRecords = numberOfRecords;
   }

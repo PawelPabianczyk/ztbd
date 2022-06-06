@@ -1,9 +1,11 @@
 package pl.pk.ztbdrelational.service;
 
-import pl.pk.ztbdrelational.dto.ResponseDto;
+import pl.pk.ztbdrelational.dto.ResultDto;
 
 public interface ReportService {
-  ResponseDto getParcelsBySubject();
+  ResultDto getParcelsBySubject();
 
-  ResponseDto getParcelsByCity();
+  ResultDto getParcelsByCity();
+
+  ResultDto getAmountToPayBySubject();
 }

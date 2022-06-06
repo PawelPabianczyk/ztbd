@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.pk.ztbdrelational.dto.ResponseDto;
+import pl.pk.ztbdrelational.dto.ResultDto;
 import pl.pk.ztbdrelational.service.ReportService;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -20,12 +20,17 @@ public class ReportController {
   }
 
   @GetMapping("/1")
-  public ResponseEntity<ResponseDto> getParcelsBySubject() {
+  public ResponseEntity<ResultDto> getParcelsBySubject() {
     return ok(service.getParcelsBySubject());
   }
 
   @GetMapping("/2")
-  public ResponseEntity<ResponseDto> getParcelsByCity() {
+  public ResponseEntity<ResultDto> getParcelsByCity() {
     return ok(service.getParcelsByCity());
+  }
+
+  @GetMapping("/3")
+  public ResponseEntity<ResultDto> getAmountToPayBySubject() {
+    return ok(service.getAmountToPayBySubject());
   }
 }
