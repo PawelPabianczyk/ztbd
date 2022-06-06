@@ -1,0 +1,13 @@
+#ORACLE
+
+GET http://localhost:8080/reports/1
+Accept: application/json
+
+###
+
+#POSTGRES
+
+GET http://localhost:8081/reports/1
+Accept: application/json
+
+###
