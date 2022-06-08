@@ -44,3 +44,21 @@ src/main/resources/db/changelog/db.changelog-master.yaml
 ```
 
 Domyślnie jest ustawiona wartość 5000 rekordów.
+
+### Indeksów na bazie danych
+
+Obecnie indeksy na bazie danych są domyślnie włączone. Aby je wyłączyć należy zakomentować
+poniższy kawałek kodu
+
+```yaml
+- include:
+  relativeToChangelogFile: true
+  file: indexes/db.changelog.yaml
+```
+
+w pliku:
+
+```
+src/main/resources/db/changelog/db.changelog-master.yaml
+```
+
