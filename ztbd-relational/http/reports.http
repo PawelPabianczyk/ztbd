@@ -13,6 +13,16 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/reports/4
+Accept: application/json
+
+###
+
+GET http://localhost:8080/reports/5
+Accept: application/json
+
+###
+
 #POSTGRES
 
 GET http://localhost:8081/reports/1
@@ -26,6 +36,16 @@ Accept: application/json
 ###
 
 GET http://localhost:8081/reports/3
+Accept: application/json
+
+###
+
+GET http://localhost:8081/reports/4
+Accept: application/json
+
+###
+
+GET http://localhost:8081/reports/5
 Accept: application/json
 
 ###

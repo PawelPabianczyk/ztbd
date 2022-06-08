@@ -3,10 +3,9 @@ package pl.pk.ztbdrelational.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.pk.ztbdrelational.model.SubjectEntity;
-import pl.pk.ztbdrelational.projection.AmountToPayBySubjectView;
-import pl.pk.ztbdrelational.projection.ParcelsByCityView;
-import pl.pk.ztbdrelational.projection.ParcelsBySubjectView;
+import pl.pk.ztbdrelational.projection.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
@@ -38,4 +37,25 @@ public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
           + "GROUP BY s.id, s.firstName, s.surname "
           + "ORDER BY sum(sd.amount) ")
   List<AmountToPayBySubjectView> getAmountToPayBySubjectView();
+
+  @Query(
+      "SELECT NEW pl.pk.ztbdrelational.projection.NotDeliveredSentParcelsView(p.id,s.firstName, s.surname,p.parcelType,p.postingDate, ra.deliveryDate)"
+          + "FROM ReceiptAckEntity ra "
+          + "JOIN ra.parcel p "
+          + "JOIN p.order o "
+          + "JOIN o.subject s "
+          + "WHERE p.postingDate <= :date AND ra.deliveryDate > :date")
+  List<NotDeliveredSentParcelsView> getNotDeliveredSentParcelsView(LocalDate date);
+
+  @Query(
+      "SELECT NEW pl.pk.ztbdrelational.projection.ParcelsSentBetweenDatesByCityView(a.city, count(a))"
+          + "FROM ParcelEntity p "
+          + "JOIN p.order o "
+          + "JOIN o.subject s "
+          + "JOIN s.address a "
+          + "WHERE p.postingDate > :after AND p.postingDate <= :before "
+          + "GROUP BY a.city "
+          + "ORDER BY count(a) DESC")
+  List<ParcelsSentBetweenDatesByCityView> getParcelsSentBetweenDatesByCityView(
+      LocalDate after, LocalDate before);
 }
