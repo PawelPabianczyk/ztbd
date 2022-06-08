@@ -1,6 +1,9 @@
 databaseChangeLog:
   - include:
       relativeToChangelogFile: true
+      file: 001_create_adres_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
       file: 001_create_faktura_indexes.yaml
   - include:
       relativeToChangelogFile: true

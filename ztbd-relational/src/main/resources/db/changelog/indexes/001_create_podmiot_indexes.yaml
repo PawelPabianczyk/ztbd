@@ -10,3 +10,14 @@ databaseChangeLog:
                   name: adres_id
             indexName: podmiot_adres_id_idx
             tableName: podmiot
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: id
+              - column:
+                  name: imie
+              - column:
+                  name: nazwisko
+            indexName: pod_id_im_na_idx
+            tableName: podmiot
