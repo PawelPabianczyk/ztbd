@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_potwierdzenie_odbioru_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: przesylka_id
+            indexName: pot_odb_prze_id_idx
+            tableName: potwierdzenie_odbioru

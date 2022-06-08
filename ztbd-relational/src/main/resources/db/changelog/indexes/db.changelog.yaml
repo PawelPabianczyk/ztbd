@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_faktura_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_oplata_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_podmiot_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_potwierdzenie_odbioru_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_przesylka_indexes.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 001_create_zlecenie_indexes.yaml

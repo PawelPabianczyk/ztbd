@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_oplata_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: faktura_id
+            indexName: oplata_faktura_id_idx
+            tableName: oplata

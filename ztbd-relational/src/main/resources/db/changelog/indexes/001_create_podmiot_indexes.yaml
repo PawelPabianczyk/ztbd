@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_podmiot_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: adres_id
+            indexName: podmiot_adres_id_idx
+            tableName: podmiot

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_przesylka_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: zlecenie_id
+            indexName: przesylka_zlecenie_id_idx
+            tableName: przesylka
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: adresat_id
+            indexName: przesylka_adresat_id_idx
+            tableName: przesylka

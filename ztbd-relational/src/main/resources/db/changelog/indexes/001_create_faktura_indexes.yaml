@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_faktura_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: zlecenie_id
+            indexName: faktura_zlecenie_id_idx
+            tableName: faktura

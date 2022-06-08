@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_zlecenie_indexes
+      author: ztp
+      changes:
+        - createIndex:
+            clustered: false
+            columns:
+              - column:
+                  name: nadawca_id
+            indexName: zlecenie_nadawca_id_idx
+            tableName: zlecenie
