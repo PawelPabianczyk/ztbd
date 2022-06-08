@@ -79,4 +79,15 @@ public class ReportServiceImpl implements ReportService {
 
     return new ResultDto(stop - start, results.size());
   }
+
+  @Override
+  public ResultDto getMaxAmountBySubject() {
+    long start = currentTimeMillis();
+    List<MaxAmountBySubjectView> results =
+        repository.getMaxAmountBySubjectView(
+            LocalDate.now().minusYears(1), LocalDate.now());
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
 }

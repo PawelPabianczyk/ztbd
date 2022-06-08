@@ -59,12 +59,6 @@ public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
   List<ParcelsSentBetweenDatesByCityView> getParcelsSentBetweenDatesByCityView(
       LocalDate after, LocalDate before);
 
-  /**
-   * SELECT pod.imie, pod.nazwisko, SUM(f.kwota) AS “suma” FROM faktura f JOIN zlecenie z ON
-   * f.zlecenie_id = z.id JOIN podmiot pod ON z.nadawca_id = pod.id JOIN przesylka p ON z.id =
-   * p.zlecenie_id WHERE p.data_nadania >= “2021-01-01” AND p.data_nadania <= “2022-01-01” GROUP BY
-   * pod.id ORDER BY “suma” DESC;
-   */
   @Query(
       "SELECT NEW pl.pk.ztbdrelational.projection.AmountPaidBySubjectView(s.firstName, s.surname, sum(sd.amount))"
           + "FROM ParcelEntity p "
@@ -75,4 +69,14 @@ public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
           + "GROUP BY s.id, s.firstName, s.surname "
           + "ORDER BY sum(sd.amount) DESC")
   List<AmountPaidBySubjectView> getAmountPaidBySubjectView(LocalDate after, LocalDate before);
+
+  @Query(
+      "SELECT NEW pl.pk.ztbdrelational.projection.MaxAmountBySubjectView(s.firstName, s.surname, max(sd.amount))"
+          + "FROM ParcelEntity p "
+          + "JOIN p.order o "
+          + "JOIN o.salesDocument sd "
+          + "JOIN o.subject s "
+          + "GROUP BY s.id, s.firstName, s.surname "
+          + "ORDER BY max(sd.amount) DESC")
+  List<MaxAmountBySubjectView> getMaxAmountBySubjectView(LocalDate after, LocalDate before);
 }

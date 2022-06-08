@@ -14,4 +14,6 @@ public interface ReportService {
   ResultDto getParcelsSentBetweenDatesByCity();
 
   ResultDto getAmountPaidBySubject();
+
+  ResultDto getMaxAmountBySubject();
 }
