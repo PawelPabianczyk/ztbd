@@ -58,4 +58,21 @@ public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
           + "ORDER BY count(a) DESC")
   List<ParcelsSentBetweenDatesByCityView> getParcelsSentBetweenDatesByCityView(
       LocalDate after, LocalDate before);
+
+  /**
+   * SELECT pod.imie, pod.nazwisko, SUM(f.kwota) AS “suma” FROM faktura f JOIN zlecenie z ON
+   * f.zlecenie_id = z.id JOIN podmiot pod ON z.nadawca_id = pod.id JOIN przesylka p ON z.id =
+   * p.zlecenie_id WHERE p.data_nadania >= “2021-01-01” AND p.data_nadania <= “2022-01-01” GROUP BY
+   * pod.id ORDER BY “suma” DESC;
+   */
+  @Query(
+      "SELECT NEW pl.pk.ztbdrelational.projection.AmountPaidBySubjectView(s.firstName, s.surname, sum(sd.amount))"
+          + "FROM ParcelEntity p "
+          + "JOIN p.order o "
+          + "JOIN o.salesDocument sd "
+          + "JOIN o.subject s "
+          + "WHERE p.postingDate > :after AND p.postingDate <= :before "
+          + "GROUP BY s.id, s.firstName, s.surname "
+          + "ORDER BY sum(sd.amount) DESC")
+  List<AmountPaidBySubjectView> getAmountPaidBySubjectView(LocalDate after, LocalDate before);
 }

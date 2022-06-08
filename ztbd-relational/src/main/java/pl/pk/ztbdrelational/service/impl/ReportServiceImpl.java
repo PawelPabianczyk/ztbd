@@ -68,4 +68,15 @@ public class ReportServiceImpl implements ReportService {
 
     return new ResultDto(stop - start, results.size());
   }
+
+  @Override
+  public ResultDto getAmountPaidBySubject() {
+    long start = currentTimeMillis();
+    List<AmountPaidBySubjectView> results =
+        repository.getAmountPaidBySubjectView(
+            LocalDate.now().minusYears(1), LocalDate.now());
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
 }

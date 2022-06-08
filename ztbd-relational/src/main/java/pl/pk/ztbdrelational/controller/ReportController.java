@@ -43,4 +43,9 @@ public class ReportController {
   public ResponseEntity<ResultDto> getParcelsSentBetweenDatesByCity() {
     return ok(service.getParcelsSentBetweenDatesByCity());
   }
+
+  @GetMapping("/6")
+  public ResponseEntity<ResultDto> getAmountPaidBySubject() {
+    return ok(service.getAmountPaidBySubject());
+  }
 }
