@@ -14,7 +14,7 @@
     <name>ztbd-relational</name>
     <description>ztbd-relational</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>18</java.version>
     </properties>
     <dependencies>
         <dependency>
