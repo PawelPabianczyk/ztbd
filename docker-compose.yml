@@ -16,19 +16,65 @@ services:
     ports:
       - 1521:1521
 
-  postgres:
-    container_name: postgres_container
+  postgres-5k-indexes:
+    container_name: postgres-5k-indexes
     restart: always
-    image: postgres
+    image: postgres:alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      PGDATA: ${PGDATA:-/data/postgres}
-    volumes:
-       - postgres:${PGDATA:-/data/postgres}
+
+  java-postgres-5k-indexes:
+    container_name: java-postgres-5k-indexes
+    image: ztbd-sql
+    environment:
+      PROFILE: "postgres"
+      ROW_AMOUNT: "5k"
+      INDEXES: "include_indexes"
+      POSTGRES_URL: "postgres-5k-indexes"
+    depends_on:
+      - postgres-5k-indexes
     ports:
-      - 5432:5432
+      - 8000:8081
+  
+  postgres-5k:
+    container_name: postgres-5k
+    restart: always
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
 
+  java-postgres-5k:
+    container_name: java-postgres-5k
+    image: ztbd-sql
+    environment:
+      PROFILE: "postgres"
+      ROW_AMOUNT: "5k"
+      INDEXES: "no"
+      POSTGRES_URL: "postgres-5k"
+    depends_on:
+      - postgres-5k
+    ports:
+      - 8001:8081
 
-volumes:
-    postgres:
+  postgres-20k:
+    container_name: postgres-20k
+    restart: always
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+
+  java-postgres-20k:
+    container_name: java-postgres-20k
+    image: ztbd-sql
+    environment:
+      PROFILE: "postgres"
+      ROW_AMOUNT: "20k"
+      INDEXES: "no"
+      POSTGRES_URL: "postgres-20k"
+    depends_on:
+      - postgres-20k
+    ports:
+      - 8003:8081
