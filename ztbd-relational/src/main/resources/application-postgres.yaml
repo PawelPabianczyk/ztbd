@@ -11,8 +11,8 @@ spring:
         format_sql: true
   liquibase:
     parameters:
-      row_amount: ${ROW_AMOUNT}
+      row_amount: ${ROW_AMOUNT:-5k}
     labels:
-      ${INDEXES}
+      ${INDEXES:-include_indexes}
 server:
   port: 8081
