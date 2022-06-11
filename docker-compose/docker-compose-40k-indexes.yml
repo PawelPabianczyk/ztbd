@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+
+  postgres-40k-indexes:
+    container_name: postgres-40k-indexes
+    restart: always
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+
+  java-postgres-40k-indexes:
+    container_name: java-postgres-40k-indexes
+    image: ztbd-sql
+    environment:
+      PROFILE: "postgres"
+      ROW_AMOUNT: "40k"
+      INDEXES: "include_indexes"
+      POSTGRES_URL: "postgres-40k-indexes"
+    depends_on:
+      - postgres-40k-indexes
+    ports:
+      - 8016:8081
+
+  oracle-40k-indexes:
+    container_name: oracle-40k-indexes
+    restart: always
+    image: oracleinanutshell/oracle-xe-11g:latest
+
+  java-oracle-40k-indexes:
+    container_name: java-oracle-40k-indexes
+    image: ztbd-sql
+    environment:
+      PROFILE: "oracle"
+      ROW_AMOUNT: "40k"
+      INDEXES: "include_indexes"
+      ORACLE_URL: "oracle-40k-indexes"
+      TZ: "GMT"
+    depends_on:
+      - oracle-40k-indexes
+    ports:
+      - 8017:8080
+
+  mongodb:
+    container_name: mongo_container
+    restart: always
+    image: mongo:5.0
+    ports:
+      - 27017:27017

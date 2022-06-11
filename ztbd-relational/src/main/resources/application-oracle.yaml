@@ -1,7 +1,7 @@
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:xe
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@${ORACLE_URL:-localhost}:1521:xe
     username: system
     password: oracle
   jpa:
@@ -9,5 +9,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.Oracle12cDialect
         format_sql: true
+  liquibase:
+    parameters:
+      row_amount: ${ROW_AMOUNT:-5k}
+    labels:
+      ${INDEXES:-include_indexes}
 server:
   port: 8080
