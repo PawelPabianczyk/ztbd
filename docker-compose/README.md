@@ -10,6 +10,7 @@ mvn clean package
 docker build -t ztbd-sql .
 ```
 ## Docker Compose
+> Oracle czasem nie zdąży się w pełni uruchomić, dlatego jeśli kontener z Javą padnie, to wystarczy poczekać chwilę aż wstanie i drugi raz odpalić identyczną komendę startującą  serwisy
 - Uruchomienie wszystkich serwisów z pliku, np.
 ```bash
 docker compose -f docker-compose-5k.yml up -d
