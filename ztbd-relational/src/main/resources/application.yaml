@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: '@spring.profiles.active@'
+    active: ${PROFILE:-postgres}
   jpa:
     hibernate:
       ddl-auto: none

@@ -5,6 +5,7 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: indexes/db.changelog.yaml
+      labels: "include_indexes"
   - include:
       relativeToChangelogFile: true
-      file: data/5k/db.changelog.yaml
+      file: data/${row_amount}/db.changelog.yaml

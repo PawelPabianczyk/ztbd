@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+
+  postgres-5k:
+    container_name: postgres-5k
+    restart: always
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+
+  java-postgres-5k:
+    container_name: java-postgres-5k
+    image: ztbd-sql
+    environment:
+      PROFILE: "postgres"
+      ROW_AMOUNT: "5k"
+      INDEXES: "no"
+      POSTGRES_URL: "postgres-5k"
+    depends_on:
+      - postgres-5k
+    ports:
+      - 8001:8081
+
+  oracle-5k:
+    container_name: oracle-5k
+    restart: always
+    image: oracleinanutshell/oracle-xe-11g:latest
+
+  java-oracle-5k:
+    container_name: java-oracle-5k
+    image: ztbd-sql
+    environment:
+      PROFILE: "oracle"
+      ROW_AMOUNT: "5k"
+      INDEXES: "no"
+      ORACLE_URL: "oracle-5k"
+      TZ: "GMT"
+    depends_on:
+      - oracle-5k
+    ports:
+      - 8002:8080
+
+  mongodb:
+    container_name: mongo_container
+    restart: always
+    image: mongo:5.0
+    ports:
+      - 27017:27017
