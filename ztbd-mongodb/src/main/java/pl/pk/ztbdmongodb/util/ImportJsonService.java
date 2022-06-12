@@ -2,7 +2,6 @@ package pl.pk.ztbdmongodb.util;
 
 import com.mongodb.MongoBulkWriteException;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
