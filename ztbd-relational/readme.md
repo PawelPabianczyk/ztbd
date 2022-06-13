@@ -7,22 +7,24 @@ Aplikacja może obsługiwać dwa różne silniki bazodanowe:
 - postgreSQL
 - Oracle
 
-Aby przełączyć się pomiędzy nimi należy wybrać jeden z dwóch dostępnych profili:
+Aby przełączyć się pomiędzy nimi należy wybrać jeden z dwóch dostępnych profili używając zmiennych środowiskowych:
 
 - postgres (domyślny)
-  - zmienna środowiskowa **INDEXES=include_indexes** do utworzenia indeksów
+  - **PROFILE=postgres** do wybrania PostgreSQL
+  - **POSTGRES_URL=localhost** do wskazania adresu, na którym jest baza danych
+  - **INDEXES=include_indexes** do utworzenia indeksów
     - bez podania zmiennej indeksy nie zostaną utworzone
-  - zmienna środowiskowa **ROW_AMOUNT=5k** do określenia ilości wierszy do zaimportowania
+  - **ROW_AMOUNT=5k** do określenia ilości wierszy do zaimportowania
     - do wyboru (5k, 20k, 40k)
 
 ```
-ROW_AMOUNT=5k INDEXES=include_indexes mvn spring-boot:run -Ppostgres
+PROFILE=postgres POSTGRES_URL=localhost ROW_AMOUNT=5k INDEXES=include_indexes mvn spring-boot:run
 ```
 
 - oracle
 
 ```
-mvn spring-boot:run -Poracle
+PROFILE=oracle ORACLE_URL=localhost ROW_AMOUNT=5k INDEXES=include_indexes mvn spring-boot:run
 ```
 
 ### Zmiana ilości importowanych danych
