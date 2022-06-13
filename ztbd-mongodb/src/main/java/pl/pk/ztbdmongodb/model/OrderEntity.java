@@ -9,7 +9,7 @@ import java.util.Set;
 @Document("zlecenie")
 public class OrderEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("nadawcaId")
     private String subject;

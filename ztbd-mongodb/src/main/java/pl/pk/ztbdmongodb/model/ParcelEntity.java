@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Document("przesylka")
 public class ParcelEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("adresatId")
     private String addressee;

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Document("oplata")
 public class PaymentEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("czy_zaplacono")
     private Boolean isPaid;

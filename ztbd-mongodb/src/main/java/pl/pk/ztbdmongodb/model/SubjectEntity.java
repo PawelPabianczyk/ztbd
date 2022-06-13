@@ -9,13 +9,13 @@ import java.util.List;
 @Document("podmiot")
 public class SubjectEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("zlecenieIds")
-    private List<OrderEntity> orders;
+    private List<String> orders;
 
     @Field("przesylkiIds")
-    private List<ParcelEntity> parcels;
+    private List<String> parcels;
 
     @Field("adres")
     private AddressEntity address;

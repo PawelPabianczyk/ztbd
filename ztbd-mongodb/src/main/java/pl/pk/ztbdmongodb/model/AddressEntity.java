@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("adres")
 public class AddressEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("miasto")
     private String city;

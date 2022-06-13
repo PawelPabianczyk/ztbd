@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Document("faktura")
 public class SalesDocumentEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("oplata")
     private PaymentEntity payment;

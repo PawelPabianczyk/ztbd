@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Document("potwierdzenieOdbioru")
 public class ReceiptAckEntity {
     @Id
-    private Long id;
+    private String id;
 
     @Field("data_dostarczenia")
     private LocalDate deliveryDate;
