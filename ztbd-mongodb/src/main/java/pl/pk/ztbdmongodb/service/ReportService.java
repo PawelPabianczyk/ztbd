@@ -4,8 +4,8 @@ import pl.pk.ztbdmongodb.dto.ResultDto;
 
 public interface ReportService {
   ResultDto getParcelsBySubject();
-//
-//  ResultDto getParcelsByCity();
+
+  ResultDto getParcelsByCity();
 //
 //  ResultDto getAmountToPayBySubject();
 //

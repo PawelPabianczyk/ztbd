@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.addFields;
-import static com.mongodb.client.model.Aggregates.sort;
+import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Indexes.descending;
+import static com.mongodb.client.model.Projections.*;
 import static java.lang.System.currentTimeMillis;
 
 @Service
@@ -29,9 +31,9 @@ public class ReportServiceImpl implements ReportService {
   @Override
   public ResultDto getParcelsBySubject() {
     long start = currentTimeMillis();
-    Bson addFiledsStage = addFields(new Field<>("arrSize", new Document("$size", "$przesylkiIds")));
+    Bson addFieldsStage = addFields(new Field<>("arrSize", new Document("$size", "$przesylkiIds")));
     Bson sortStage = sort(descending("arrSize"));
-    List<Bson> pipeline = Arrays.asList(addFiledsStage, sortStage);
+    List<Bson> pipeline = List.of(addFieldsStage, sortStage);
     List<Document> results = new ArrayList<>();
     mongoTemplate.getCollection("podmiot").aggregate(pipeline).into(results);
     long stop = currentTimeMillis();
@@ -39,15 +41,20 @@ public class ReportServiceImpl implements ReportService {
     return new ResultDto(stop - start, results.size());
   }
 
-  //
-  //  @Override
-  //  public ResultDto getParcelsByCity() {
-  //    long start = currentTimeMillis();
-  //    List<ParcelsByCityView> results = repository.getParcelsByCity();
-  //    long stop = currentTimeMillis();
-  //
-  //    return new ResultDto(stop - start, results.size());
-  //  }
+  @Override
+  public ResultDto getParcelsByCity() {
+    long start = currentTimeMillis();
+    Bson group =
+        group("$adres.miasto", sum("liczbaPrzesylek", new Document("$size", "$przesylkiIds")));
+    Bson sortStage = sort(descending("liczbaPrzesylek"));
+    List<Bson> pipeline = List.of(group, sortStage);
+    List<Document> results = new ArrayList<>();
+    mongoTemplate.getCollection("podmiot").aggregate(pipeline).into(results);
+
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
   //
   //  @Override
   //  public ResultDto getAmountToPayBySubject() {

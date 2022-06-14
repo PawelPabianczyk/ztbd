@@ -25,11 +25,11 @@ public class ReportController {
   public ResponseEntity<ResultDto> getParcelsBySubject() {
     return ok(service.getParcelsBySubject());
   }
-//
-//  @GetMapping("/2")
-//  public ResponseEntity<ResultDto> getParcelsByCity() {
-//    return ok(service.getParcelsByCity());
-//  }
+
+  @GetMapping("/2")
+  public ResponseEntity<ResultDto> getParcelsByCity() {
+    return ok(service.getParcelsByCity());
+  }
 //
 //  @GetMapping("/3")
 //  public ResponseEntity<ResultDto> getAmountToPayBySubject() {
