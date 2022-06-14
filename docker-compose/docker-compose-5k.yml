@@ -42,9 +42,19 @@ services:
     ports:
       - 8002:8080
 
-  mongodb:
-    container_name: mongo_container
+  mongo-5k:
+    container_name: mongo-5k
     restart: always
     image: mongo:5.0
+
+  java-mongo-5k:
+    container_name: java-mongo-5k
+    image: ztbd-nosql
+    environment:
+      ROW_AMOUNT: "5k"
+      INDEXES: "no"
+      MONGO_URL: "mongo-5k"
+    depends_on:
+      - mongo-5k
     ports:
-      - 27017:27017
+      - 8003:8082
