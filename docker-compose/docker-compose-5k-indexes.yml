@@ -42,9 +42,24 @@ services:
     ports:
       - 8005:8080
 
-  mongodb:
-    container_name: mongo_container
+  mongo-5k-indexes:
+    container_name: mongo-5k-indexes
     restart: always
     image: mongo:5.0
+
+  java-mongo-5k-indexes:
+    container_name: java-mongo-5k-indexes
+    image: ztbd-nosql
+    environment:
+      MONGO_URL: "mongo-5k-indexes"
+    depends_on:
+      - mongo-5k-indexes
     ports:
-      - 27017:27017
+      - 8006:8082
+    command:
+      - "--import=data/5k/podmioty.json.log"
+      - "--collection=podmiot"
+      - "--import=data/5k/przesylki.json.log"
+      - "--collection=przesylka"
+      - "--import=data/5k/zlecenia.json.log"
+      - "--collection=zlecenie"
