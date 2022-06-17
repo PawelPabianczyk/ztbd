@@ -42,9 +42,24 @@ services:
     ports:
       - 8017:8080
 
-  mongodb:
-    container_name: mongo_container
+  mongo-40k-indexes:
+    container_name: mongo-40k-indexes
     restart: always
     image: mongo:5.0
+
+  java-mongo-40k-indexes:
+    container_name: java-mongo-40k-indexes
+    image: ztbd-nosql
+    environment:
+      MONGO_URL: "mongo-40k-indexes"
+    depends_on:
+      - mongo-40k-indexes
     ports:
-      - 27017:27017
+      - 8018:8082
+    command:
+      - "--import=data/40k/podmioty.json.log"
+      - "--collection=podmiot"
+      - "--import=data/40k/przesylki.json.log"
+      - "--collection=przesylka"
+      - "--import=data/40k/zlecenia.json.log"
+      - "--collection=zlecenie"

@@ -51,10 +51,15 @@ services:
     container_name: java-mongo-5k
     image: ztbd-nosql
     environment:
-      ROW_AMOUNT: "5k"
-      INDEXES: "no"
       MONGO_URL: "mongo-5k"
     depends_on:
       - mongo-5k
     ports:
       - 8003:8082
+    command:
+      - "--import=data/5k/podmioty.json.log"
+      - "--collection=podmiot"
+      - "--import=data/5k/przesylki.json.log"
+      - "--collection=przesylka"
+      - "--import=data/5k/zlecenia.json.log"
+      - "--collection=zlecenie"
