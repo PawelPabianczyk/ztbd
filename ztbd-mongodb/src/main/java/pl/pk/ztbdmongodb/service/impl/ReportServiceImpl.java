@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import pl.pk.ztbdmongodb.dto.ResultDto;
 import pl.pk.ztbdmongodb.service.ReportService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Indexes.descending;
 import static java.lang.System.currentTimeMillis;
 
@@ -72,16 +73,25 @@ public class ReportServiceImpl implements ReportService {
     long stop = currentTimeMillis();
     return new ResultDto(stop - start, results.size());
   }
-  //
-  //  @Override
-  //  public ResultDto getNotDeliveredSentParcels() {
-  //    long start = currentTimeMillis();
-  //    List<NotDeliveredSentParcelsView> results =
-  //        repository.getNotDeliveredSentParcelsView(LocalDate.now());
-  //    long stop = currentTimeMillis();
-  //
-  //    return new ResultDto(stop - start, results.size());
-  //  }
+
+  @Override
+  public ResultDto getNotDeliveredSentParcels() {
+    long start = currentTimeMillis();
+    List<Document> results = new ArrayList<>();
+    mongoTemplate
+        .getCollection("zlecenie")
+        .aggregate(
+            List.of(
+                lookup("przesylka", "przesylkaIds", "_id", "przesylka"),
+                match(lte("faktura.oplata.data_zaplaty", LocalDate.now())),
+                match(
+                    gt(
+                        "przesylka.potwierdzenieOdbioru.data_dostarczenia.data_zaplaty",
+                        LocalDate.now()))))
+        .into(results);
+    long stop = currentTimeMillis();
+    return new ResultDto(stop - start, results.size());
+  }
   //
   //  @Override
   //  public ResultDto getParcelsSentBetweenDatesByCity() {
