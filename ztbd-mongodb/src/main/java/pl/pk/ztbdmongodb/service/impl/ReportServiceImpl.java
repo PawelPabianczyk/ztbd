@@ -15,7 +15,6 @@ import static com.mongodb.client.model.Accumulators.max;
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Indexes.ascending;
 import static com.mongodb.client.model.Indexes.descending;
 import static java.lang.System.currentTimeMillis;
 
@@ -75,12 +74,14 @@ public class ReportServiceImpl implements ReportService {
     long start = currentTimeMillis();
     List<Document> results = new ArrayList<>();
     mongoTemplate
-        .getCollection("zlecenie")
+        .getCollection("podmiot")
         .aggregate(
             List.of(
-                match(eq("faktura.oplata.czy_zaplacono", "1")),
-                group("$nadawcaId", sum("suma", "$faktura.kwota")),
-                sort(descending("suma"))))
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                match(eq("zlecenie.faktura.oplata.czy_zaplacono", "0")),
+                group("$_id", sum("sumaNieoplaconychKwot", "$zlecenie.faktura.kwota")),
+                sort(descending("sumaNieoplaconychKwot"))))
         .into(results);
     long stop = currentTimeMillis();
     return new ResultDto(stop - start, results.size());
