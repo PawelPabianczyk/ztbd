@@ -15,6 +15,7 @@ import static com.mongodb.client.model.Accumulators.max;
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Indexes.ascending;
 import static com.mongodb.client.model.Indexes.descending;
 import static java.lang.System.currentTimeMillis;
 
@@ -35,8 +36,14 @@ public class ReportServiceImpl implements ReportService {
         .getCollection("podmiot")
         .aggregate(
             List.of(
-                addFields(new Field<>("arrSize", new Document("$size", "$przesylkiIds"))),
-                sort(descending("arrSize"))))
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                addFields(
+                    new Field<>(
+                        "liczbaPrzesylekWZamowieniu",
+                        new Document("$size", "$zlecenie.przesylkaIds"))),
+                group("$_id", sum("liczbaPrzesylek", "$liczbaPrzesylekWZamowieniu")),
+                sort(descending("liczbaPrzesylek"))))
         .into(results);
     long stop = currentTimeMillis();
     return new ResultDto(stop - start, results.size());
@@ -144,7 +151,7 @@ public class ReportServiceImpl implements ReportService {
                 lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
                 unwind("$zlecenie"),
                 group("$_id", max("maxKwota", "$zlecenie.faktura.kwota")),
-                    sort(descending("maxKwota"))))
+                sort(descending("maxKwota"))))
         .into(results);
 
     long stop = currentTimeMillis();
