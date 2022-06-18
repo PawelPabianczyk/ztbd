@@ -87,6 +87,7 @@ public class ReportServiceImpl implements ReportService {
     return new ResultDto(stop - start, results.size());
   }
 
+  // TODO: 18.06.2022 test this solution after fixing generated dates
   @Override
   public ResultDto getNotDeliveredSentParcels() {
     long start = currentTimeMillis();
@@ -106,6 +107,7 @@ public class ReportServiceImpl implements ReportService {
     return new ResultDto(stop - start, results.size());
   }
 
+  // TODO: 18.06.2022 test this solution after fixing generated dates
   @Override
   public ResultDto getParcelsSentBetweenDatesByCity() {
     long start = currentTimeMillis();
@@ -114,16 +116,21 @@ public class ReportServiceImpl implements ReportService {
         .getCollection("podmiot")
         .aggregate(
             List.of(
-                lookup("przesylka", "przesylkaIds", "_id", "przesylka"),
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                lookup("przesylka", "zlecenie.przesylkaIds", "_id", "przesylka"),
+                unwind("$przesylka"),
                 match(gt("przesylka.data_nadania", LocalDate.now().minusYears(1))),
                 match(lt("przesylka.data_nadania", LocalDate.now())),
-                group("$adres.miasto", sum("przesylka", 1))))
+                group("$adres.miasto", sum("liczbaPrzesylek", 1)),
+                sort(descending("liczbaPrzesylek"))))
         .into(results);
 
     long stop = currentTimeMillis();
 
     return new ResultDto(stop - start, results.size());
   }
+  // TODO: 18.06.2022 test this solution after fixing generated dates
 
   @Override
   public ResultDto getAmountPaidBySubject() {
@@ -133,12 +140,13 @@ public class ReportServiceImpl implements ReportService {
         .getCollection("podmiot")
         .aggregate(
             List.of(
-                lookup("przesylka", "przesylkiIds", "_id", "przesylka"),
                 lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
                 unwind("$zlecenie"),
+                lookup("przesylka", "zlecenie.przesylkaIds", "_id", "przesylka"),
                 match(gt("przesylka.data_nadania", LocalDate.now().minusYears(1))),
                 match(lt("przesylka.data_nadania", LocalDate.now())),
-                group("$_id", sum("suma", "$zlecenie.faktura.kwota"))))
+                group("$_id", sum("sumaKwot", "$zlecenie.faktura.kwota")),
+                sort(descending("sumaKwot"))))
         .into(results);
     long stop = currentTimeMillis();
 
