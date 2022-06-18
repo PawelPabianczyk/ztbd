@@ -57,9 +57,13 @@ public class ReportServiceImpl implements ReportService {
         .getCollection("podmiot")
         .aggregate(
             List.of(
-                group(
-                    "$adres.miasto",
-                    sum("liczbaPrzesylek", new Document("$size", "$przesylkiIds"))),
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                addFields(
+                    new Field<>(
+                        "liczbaPrzesylekWZamowieniu",
+                        new Document("$size", "$zlecenie.przesylkaIds"))),
+                group("$adres.miasto", sum("liczbaPrzesylek", "$liczbaPrzesylekWZamowieniu")),
                 sort(descending("liczbaPrzesylek"))))
         .into(results);
     long stop = currentTimeMillis();
