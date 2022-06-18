@@ -12,8 +12,8 @@ public interface ReportService {
   ResultDto getNotDeliveredSentParcels();
 
   ResultDto getParcelsSentBetweenDatesByCity();
-//
-//  ResultDto getAmountPaidBySubject();
-//
-//  ResultDto getMaxAmountBySubject();
+
+  ResultDto getAmountPaidBySubject();
+
+  ResultDto getMaxAmountBySubject();
 }

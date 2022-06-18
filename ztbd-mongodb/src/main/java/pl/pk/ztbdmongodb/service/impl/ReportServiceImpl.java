@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Accumulators.max;
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Filters.*;
@@ -102,9 +103,8 @@ public class ReportServiceImpl implements ReportService {
         .aggregate(
             List.of(
                 lookup("przesylka", "przesylkaIds", "_id", "przesylka"),
-                                match(gt("przesylka.data_nadania",
-                 LocalDate.now().minusYears(1))),
-                                match(lt("przesylka.data_nadania", LocalDate.now())),
+                match(gt("przesylka.data_nadania", LocalDate.now().minusYears(1))),
+                match(lt("przesylka.data_nadania", LocalDate.now())),
                 group("$adres.miasto", sum("przesylka", 1))))
         .into(results);
 
@@ -112,26 +112,43 @@ public class ReportServiceImpl implements ReportService {
 
     return new ResultDto(stop - start, results.size());
   }
-  //
-  //  @Override
-  //  public ResultDto getAmountPaidBySubject() {
-  //    long start = currentTimeMillis();
-  //    List<AmountPaidBySubjectView> results =
-  //        repository.getAmountPaidBySubjectView(
-  //            LocalDate.now().minusYears(1), LocalDate.now());
-  //    long stop = currentTimeMillis();
-  //
-  //    return new ResultDto(stop - start, results.size());
-  //  }
-  //
-  //  @Override
-  //  public ResultDto getMaxAmountBySubject() {
-  //    long start = currentTimeMillis();
-  //    List<MaxAmountBySubjectView> results =
-  //        repository.getMaxAmountBySubjectView(
-  //            LocalDate.now().minusYears(1), LocalDate.now());
-  //    long stop = currentTimeMillis();
-  //
-  //    return new ResultDto(stop - start, results.size());
-  //  }
+
+  @Override
+  public ResultDto getAmountPaidBySubject() {
+    long start = currentTimeMillis();
+    List<Document> results = new ArrayList<>();
+    mongoTemplate
+        .getCollection("podmiot")
+        .aggregate(
+            List.of(
+                lookup("przesylka", "przesylkiIds", "_id", "przesylka"),
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                match(gt("przesylka.data_nadania", LocalDate.now().minusYears(1))),
+                match(lt("przesylka.data_nadania", LocalDate.now())),
+                group("$_id", sum("suma", "$zlecenie.faktura.kwota"))))
+        .into(results);
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
+
+  @Override
+  public ResultDto getMaxAmountBySubject() {
+    long start = currentTimeMillis();
+    List<Document> results = new ArrayList<>();
+    mongoTemplate
+        .getCollection("podmiot")
+        .aggregate(
+            List.of(
+                lookup("zlecenie", "zlecenieIds", "_id", "zlecenie"),
+                unwind("$zlecenie"),
+                group("$_id", max("maxKwota", "$zlecenie.faktura.kwota")),
+                    sort(descending("maxKwota"))))
+        .into(results);
+
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
 }
