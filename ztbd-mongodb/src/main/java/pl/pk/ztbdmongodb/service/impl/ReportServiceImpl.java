@@ -92,17 +92,26 @@ public class ReportServiceImpl implements ReportService {
     long stop = currentTimeMillis();
     return new ResultDto(stop - start, results.size());
   }
-  //
-  //  @Override
-  //  public ResultDto getParcelsSentBetweenDatesByCity() {
-  //    long start = currentTimeMillis();
-  //    List<ParcelsSentBetweenDatesByCityView> results =
-  //        repository.getParcelsSentBetweenDatesByCityView(
-  //            LocalDate.now().minusYears(1), LocalDate.now());
-  //    long stop = currentTimeMillis();
-  //
-  //    return new ResultDto(stop - start, results.size());
-  //  }
+
+  @Override
+  public ResultDto getParcelsSentBetweenDatesByCity() {
+    long start = currentTimeMillis();
+    List<Document> results = new ArrayList<>();
+    mongoTemplate
+        .getCollection("podmiot")
+        .aggregate(
+            List.of(
+                lookup("przesylka", "przesylkaIds", "_id", "przesylka"),
+                                match(gt("przesylka.data_nadania",
+                 LocalDate.now().minusYears(1))),
+                                match(lt("przesylka.data_nadania", LocalDate.now())),
+                group("$adres.miasto", sum("przesylka", 1))))
+        .into(results);
+
+    long stop = currentTimeMillis();
+
+    return new ResultDto(stop - start, results.size());
+  }
   //
   //  @Override
   //  public ResultDto getAmountPaidBySubject() {

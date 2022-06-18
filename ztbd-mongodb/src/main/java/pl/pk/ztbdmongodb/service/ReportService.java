@@ -10,8 +10,8 @@ public interface ReportService {
   ResultDto getAmountToPayBySubject();
 
   ResultDto getNotDeliveredSentParcels();
-//
-//  ResultDto getParcelsSentBetweenDatesByCity();
+
+  ResultDto getParcelsSentBetweenDatesByCity();
 //
 //  ResultDto getAmountPaidBySubject();
 //

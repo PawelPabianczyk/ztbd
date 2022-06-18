@@ -40,11 +40,11 @@ public class ReportController {
   public ResponseEntity<ResultDto> getNotDeliveredSentParcels() {
     return ok(service.getNotDeliveredSentParcels());
   }
-//
-//  @GetMapping("/5")
-//  public ResponseEntity<ResultDto> getParcelsSentBetweenDatesByCity() {
-//    return ok(service.getParcelsSentBetweenDatesByCity());
-//  }
+
+  @GetMapping("/5")
+  public ResponseEntity<ResultDto> getParcelsSentBetweenDatesByCity() {
+    return ok(service.getParcelsSentBetweenDatesByCity());
+  }
 //
 //  @GetMapping("/6")
 //  public ResponseEntity<ResultDto> getAmountPaidBySubject() {
