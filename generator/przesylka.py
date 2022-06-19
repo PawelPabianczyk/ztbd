@@ -3,27 +3,11 @@ import json
 import generators
 import random
 import datetime
-import jsonlines
 import pandas as pd
 
 
 def generate():
-    n = 5000
-
-    adresy = []
-    adres = {}
-    podmioty = []
-    podmiot = {}
-    zlecenia = []
-    zlecenie = {}
-    przesylki = []
-    przesylka = {}
-    faktury = []
-    faktura = {}
-    oplaty = []
-    oplata = {}
-    potwierdzenia = []
-    potwierdzenie = {}
+    n = 40000
 
     adresJSON = {}
     adresyJSON = []
@@ -66,9 +50,6 @@ def generate():
         }
         adresyJSON.append(adresJSON)
 
-        adres = id_adresu + ',' + miasto + ',' + kod_pocztowy + ',' + ulica + ',' + nr_budynku + ',' + nr_lokalu
-        adresy.append(adres)
-
         # PODMIOT
         id_podmiotu = str(i + 1)
         id_adresu = str(i + 1)
@@ -104,9 +85,9 @@ def generate():
                     czy_zaplacono = str(random.randrange(0, 2))
 
                 if czy_zaplacono == '1':
-                    data_zaplaty = data_nadania
+                    data_zaplaty = {"$date": str(data_nadania)}
                 else:
-                    data_zaplaty = ''  # NULL
+                    data_zaplaty = {}
 
                 if random.randrange(0, 3) == 0:
                     typ_platnosci = 'gotówka'
@@ -124,9 +105,6 @@ def generate():
                     'typ_platnosc': typ_platnosci
                 }
                 oplatyJSON.append(oplataJSON)
-                oplata = id_oplaty + ',' + id_faktury + ',' + czy_zaplacono + ',' + str(
-                    data_zaplaty) + ',' + typ_platnosci
-                oplaty.append(oplata)
 
                 # ile przesylek w zleceniu
                 # 0 1 2 3 4   40%
@@ -169,11 +147,9 @@ def generate():
                             id_potwierdzenia = str(len(potwierdzeniaJSON) + 1)
                             potwierdzenieJSON = {
                                 '_id': id_potwierdzenia,
-                                'data_dostarczenia': data_dostarczenia
+                                'data_dostarczenia': {"$date": str(data_dostarczenia)},
                             }
                             potwierdzeniaJSON.append(potwierdzenieJSON)
-                            potwierdzenie = id_potwierdzenia + ',' + id_potwierdzenia + ',' + data_dostarczenia
-                            potwierdzenia.append(potwierdzenie)
 
                         przesylkaJSON = {
                             '_id': id_przesylki,
@@ -183,15 +159,12 @@ def generate():
                             'wymiar_y': y,
                             'wymiar_z': z,
                             'waga': waga,
-                            'data_nadania': str(data_nadania),
+                            'data_nadania': {"$date": str(data_nadania)},
                             'rodzaj_przesylki': rodzaj_przesylki,
                             'potwierdzenieOdbioru': potwierdzenieJSON
                         }
                         przesylkiJSON.append(przesylkaJSON)
 
-                        przesylka = id_przesylki + ',' + id_zlecenia + ',' + adresat_id + ',' + rodzaj_przesylki \
-                                    + ',' + x + ',' + y + ',' + z + ',' + waga + ',' + str(data_nadania)
-                        przesylki.append(przesylka)
 
                 # jedna przesylka
                 else:
@@ -231,11 +204,9 @@ def generate():
                         id_potwierdzenia = str(len(potwierdzeniaJSON) + 1)
                         potwierdzenieJSON = {
                             '_id': id_potwierdzenia,
-                            'data_dostarczenia': data_dostarczenia
+                            'data_dostarczenia': {"$date": str(data_dostarczenia)},
                         }
                         potwierdzeniaJSON.append(potwierdzenieJSON)
-                        potwierdzenie = id_potwierdzenia + ',' + id_potwierdzenia + ',' + data_dostarczenia
-                        potwierdzenia.append(potwierdzenie)
 
                     przesylkaJSON = {
                         '_id': id_przesylki,
@@ -245,25 +216,19 @@ def generate():
                         'wymiar_y': y,
                         'wymiar_z': z,
                         'waga': waga,
-                        'data_nadania': str(data_nadania),
+                        'data_nadania': {"$date": str(data_nadania)},
                         'rodzaj_przesylki': rodzaj_przesylki,
                         'potwierdzenieOdbioru': potwierdzenieJSON
                     }
                     przesylkiJSON.append(przesylkaJSON)
 
-                    przesylka = id_przesylki + ',' + id_zlecenia + ',' + adresat_id + ',' + rodzaj_przesylki \
-                                + ',' + x + ',' + y + ',' + z + ',' + waga + ',' + str(data_nadania)
-                    przesylki.append(przesylka)
-
                 fakturaJSON = {
                     '_id': id_faktury,
                     'oplata': oplataJSON,
-                    'data_wystawienia': data_wystawienia,
+                    'data_wystawienia': {"$date": str(data_wystawienia)},
                     'kwota': kwota
                 }
                 fakturyJSON.append(fakturaJSON)
-                faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + str(kwota)
-                faktury.append(faktura)
 
                 zlecenieJSON = {
                     '_id': id_zlecenia,
@@ -273,8 +238,6 @@ def generate():
                 }
                 zleceniaJSON.append(zlecenieJSON)
 
-                zlecenie = id_zlecenia + ',' + nadawca_id
-                zlecenia.append(zlecenie)
 
         else:
             # ZLECENIA
@@ -293,9 +256,9 @@ def generate():
                 czy_zaplacono = str(random.randrange(0, 2))
 
             if czy_zaplacono == '1':
-                data_zaplaty = data_nadania
+                data_zaplaty = {"$date": str(data_nadania)}
             else:
-                data_zaplaty = ''  # NULL
+                data_zaplaty = {}
 
             if random.randrange(0, 3) == 0:
                 typ_platnosci = 'gotówka'
@@ -310,11 +273,9 @@ def generate():
                 '_id': id_oplaty,
                 'czy_zaplacono': czy_zaplacono,
                 'data_zaplaty': data_zaplaty,
-                'typ_platnosc': typ_platnosci
+            'typ_platnosc': typ_platnosci
             }
             oplatyJSON.append(oplataJSON)
-            oplata = id_oplaty + ',' + id_faktury + ',' + czy_zaplacono + ',' + str(data_zaplaty) + ',' + typ_platnosci
-            oplaty.append(oplata)
 
             # ile przesylek w zleceniu
             # 0 1 2 3 4   40%
@@ -357,11 +318,9 @@ def generate():
                         id_potwierdzenia = str(len(potwierdzeniaJSON) + 1)
                         potwierdzenieJSON = {
                             '_id': id_potwierdzenia,
-                            'data_dostarczenia': data_dostarczenia
+                            'data_dostarczenia': {"$date": str(data_dostarczenia)},
                         }
                         potwierdzeniaJSON.append(potwierdzenieJSON)
-                        potwierdzenie = id_potwierdzenia + ',' + id_potwierdzenia + ',' + data_dostarczenia
-                        potwierdzenia.append(potwierdzenie)
 
                     przesylkaJSON = {
                         '_id': id_przesylki,
@@ -371,15 +330,13 @@ def generate():
                         'wymiar_y': y,
                         'wymiar_z': z,
                         'waga': waga,
-                        'data_nadania': str(data_nadania),
+                        'data_nadania': {"$date": str(data_nadania)},
                         'rodzaj_przesylki': rodzaj_przesylki,
                         'potwierdzenieOdbioru': potwierdzenieJSON
                     }
                     przesylkiJSON.append(przesylkaJSON)
 
-                    przesylka = id_przesylki + ',' + id_zlecenia + ',' + adresat_id + ',' + rodzaj_przesylki \
-                                + ',' + x + ',' + y + ',' + z + ',' + waga + ',' + str(data_nadania)
-                    przesylki.append(przesylka)
+
 
             # jedna przesylka
             else:
@@ -419,52 +376,42 @@ def generate():
                     id_potwierdzenia = str(len(potwierdzeniaJSON) + 1)
                     potwierdzenieJSON = {
                         '_id': id_potwierdzenia,
-                        'data_dostarczenia': data_dostarczenia
+                        'data_dostarczenia': {"$date": str(data_dostarczenia)},
                     }
                     potwierdzeniaJSON.append(potwierdzenieJSON)
-                    potwierdzenie = id_potwierdzenia + ',' + id_potwierdzenia + ',' + data_dostarczenia
-                    potwierdzenia.append(potwierdzenie)
 
                 przesylkaJSON = {
-                    '_id': id_przesylki,
-                    'adresatId': adresat_id,
-                    'zlecenieId': id_zlecenia,
+                    '_id': "\""+id_przesylki+"\"",
+                    'adresatId': "\""+adresat_id+"\"",
+                    'zlecenieId': "\""+id_zlecenia+"\"",
                     'wymiar_x': x,
                     'wymiar_y': y,
                     'wymiar_z': z,
                     'waga': waga,
-                    'data_nadania': str(data_nadania),
+                    'data_nadania': {"$date": str(data_nadania)},
                     'rodzaj_przesylki': rodzaj_przesylki,
                     'potwierdzenieOdbioru': potwierdzenieJSON
                 }
                 przesylkiJSON.append(przesylkaJSON)
-                przesylka = id_przesylki + ',' + id_zlecenia + ',' + adresat_id + ',' + rodzaj_przesylki \
-                            + ',' + x + ',' + y + ',' + z + ',' + waga + ',' + str(data_nadania)
-                przesylki.append(przesylka)
 
             fakturaJSON = {
                 '_id': id_faktury,
                 'oplata': oplataJSON,
-                'data_wystawienia': data_wystawienia,
+                'data_wystawienia': {"$date": str(data_wystawienia)},
                 'kwota': kwota
             }
             fakturyJSON.append(fakturaJSON)
-            faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + str(kwota)
-            faktury.append(faktura)
 
             zlecenieJSON = {
-                '_id': id_zlecenia,
-                'nadawcaId': nadawca_id,
+                '_id': "\""+id_zlecenia+"\"",
+                'nadawcaId': "\""+nadawca_id+"\"",
                 'przesylkaIds': przesylkaIds,
                 'faktura': fakturaJSON
             }
             zleceniaJSON.append(zlecenieJSON)
 
-            zlecenie = id_zlecenia + ',' + nadawca_id
-            zlecenia.append(zlecenie)
-
         podmiotJSON = {
-            '_id': id_podmiotu,
+            '_id': "\""+id_podmiotu+"\"",
             'adres': adresJSON,
             'zlecenieIds': zlecenieIds,
             'imie': imie,
@@ -473,9 +420,6 @@ def generate():
             'nazwa': nazwa
         }
         podmiotyJSON.append(podmiotJSON)
-
-        podmiot = id_podmiotu + ',' + id_adresu + ',' + nazwa + ',' + imie + ',' + nazwisko + ',' + nip
-        podmioty.append(podmiot)
 
     podmioty_json_object = json.dumps(podmiotyJSON, indent=4, default=str)
     with open("generated_data/podmioty-" + str(n) + ".json", "w") as outfile:
@@ -490,13 +434,13 @@ def generate():
         outfile.write(przesylki_json_object)
 
     df = pd.read_json("generated_data/podmioty-" + str(n) + ".json")
-    df.to_json("generated_data/podmioty-" + str(n) + ".json.log", orient="records", lines=True)
+    df.to_json("generated_data/podmioty.json.log", orient="records", lines=True)
 
     df = pd.read_json("generated_data/zlecenia-" + str(n) + ".json")
-    df.to_json("generated_data/zlecenia-" + str(n) + ".json.log", orient="records", lines=True)
+    df.to_json("generated_data/zlecenia.json.log", orient="records", lines=True)
 
     df = pd.read_json("generated_data/przesylki-" + str(n) + ".json")
-    df.to_json("generated_data/przesylki-" + str(n) + ".json.log", orient="records", lines=True)
+    df.to_json("generated_data/przesylki.json.log", orient="records", lines=True)
 
 
 generate()
