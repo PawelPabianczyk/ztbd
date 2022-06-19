@@ -3,10 +3,12 @@ import json
 import generators
 import random
 import datetime
+import jsonlines
+import pandas as pd
 
 
 def generate():
-    n = 10
+    n = 5000
 
     adresy = []
     adres = {}
@@ -104,7 +106,7 @@ def generate():
                 if czy_zaplacono == '1':
                     data_zaplaty = data_nadania
                 else:
-                    data_zaplaty = 'NULL'
+                    data_zaplaty = ''  # NULL
 
                 if random.randrange(0, 3) == 0:
                     typ_platnosci = 'gotówka'
@@ -131,7 +133,7 @@ def generate():
                 if random.randrange(0, 5) > 2:
                     # wiele
                     yle = random.randrange(2, 5)
-                    kwota = str(yle * 14.99)
+                    kwota = yle * 14.99
                     przesylkaIds = []
                     for k in range(0, yle):
                         # PRZESYLKI
@@ -193,7 +195,7 @@ def generate():
 
                 # jedna przesylka
                 else:
-                    kwota = str(14.99)
+                    kwota = 14.99
                     przesylkaIds = []
 
                     # PRZESYLKI
@@ -260,7 +262,7 @@ def generate():
                     'kwota': kwota
                 }
                 fakturyJSON.append(fakturaJSON)
-                faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + kwota
+                faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + str(kwota)
                 faktury.append(faktura)
 
                 zlecenieJSON = {
@@ -293,7 +295,7 @@ def generate():
             if czy_zaplacono == '1':
                 data_zaplaty = data_nadania
             else:
-                data_zaplaty = 'NULL'
+                data_zaplaty = ''  # NULL
 
             if random.randrange(0, 3) == 0:
                 typ_platnosci = 'gotówka'
@@ -319,7 +321,7 @@ def generate():
             if random.randrange(0, 5) > 2:
                 # wiele
                 yle = random.randrange(2, 5)
-                kwota = str(yle * 14.99)
+                kwota = yle * 14.99
                 przesylkaIds = []
                 for k in range(0, yle):
                     # PRZESYLKI
@@ -381,7 +383,7 @@ def generate():
 
             # jedna przesylka
             else:
-                kwota = str(14.99)
+                kwota = 14.99
                 przesylkaIds = []
 
                 # PRZESYLKI
@@ -447,7 +449,7 @@ def generate():
                 'kwota': kwota
             }
             fakturyJSON.append(fakturaJSON)
-            faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + kwota
+            faktura = id_faktury + ',' + id_zlecenia + ',' + data_wystawienia + ',' + str(kwota)
             faktury.append(faktura)
 
             zlecenieJSON = {
@@ -475,16 +477,26 @@ def generate():
         podmiot = id_podmiotu + ',' + id_adresu + ',' + nazwa + ',' + imie + ',' + nazwisko + ',' + nip
         podmioty.append(podmiot)
 
-    json_object = json.dumps(podmiotyJSON, indent=4, default=str)
+    podmioty_json_object = json.dumps(podmiotyJSON, indent=4, default=str)
     with open("generated_data/podmioty-" + str(n) + ".json", "w") as outfile:
-        outfile.write(json_object)
+        outfile.write(podmioty_json_object)
 
-    json_object = json.dumps(zleceniaJSON, indent=4, default=str)
+    zlecenia_json_object = json.dumps(zleceniaJSON, indent=4, default=str)
     with open("generated_data/zlecenia-" + str(n) + ".json", "w") as outfile:
-        outfile.write(json_object)
+        outfile.write(zlecenia_json_object)
 
-    json_object = json.dumps(przesylkiJSON, indent=4, default=str)
+    przesylki_json_object = json.dumps(przesylkiJSON, indent=4, default=str)
     with open("generated_data/przesylki-" + str(n) + ".json", "w") as outfile:
-        outfile.write(json_object)
+        outfile.write(przesylki_json_object)
+
+    df = pd.read_json("generated_data/podmioty-" + str(n) + ".json")
+    df.to_json("generated_data/podmioty-" + str(n) + ".json.log", orient="records", lines=True)
+
+    df = pd.read_json("generated_data/zlecenia-" + str(n) + ".json")
+    df.to_json("generated_data/zlecenia-" + str(n) + ".json.log", orient="records", lines=True)
+
+    df = pd.read_json("generated_data/przesylki-" + str(n) + ".json")
+    df.to_json("generated_data/przesylki-" + str(n) + ".json.log", orient="records", lines=True)
+
 
 generate()
