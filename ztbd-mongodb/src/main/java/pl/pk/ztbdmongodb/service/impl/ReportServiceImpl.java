@@ -87,7 +87,6 @@ public class ReportServiceImpl implements ReportService {
     return new ResultDto(stop - start, results.size());
   }
 
-  // TODO: 18.06.2022 test this solution after fixing generated dates
   @Override
   public ResultDto getNotDeliveredSentParcels() {
     long start = currentTimeMillis();
@@ -107,7 +106,6 @@ public class ReportServiceImpl implements ReportService {
     return new ResultDto(stop - start, results.size());
   }
 
-  // TODO: 18.06.2022 test this solution after fixing generated dates
   @Override
   public ResultDto getParcelsSentBetweenDatesByCity() {
     long start = currentTimeMillis();
@@ -130,7 +128,6 @@ public class ReportServiceImpl implements ReportService {
 
     return new ResultDto(stop - start, results.size());
   }
-  // TODO: 18.06.2022 test this solution after fixing generated dates
 
   @Override
   public ResultDto getAmountPaidBySubject() {
